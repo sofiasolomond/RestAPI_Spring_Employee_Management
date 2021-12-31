@@ -31,7 +31,7 @@ public class UserController {
 
 	// This end point is for listing user details
 	@RequestMapping("/list")
-	public String listEmployee(Model model) {
+	public String listUsers(Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("Users", users);
 		return "ListUserDetails";

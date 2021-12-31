@@ -45,7 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/employee/admin/", "/employee/adminsort/").hasAuthority("ADMIN")
+		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
+		.permitAll().antMatchers("/employee/admin/", "/employee/adminsort/", "/role/**", "/user/**", "/employee/showFormForAdd*/**").hasAuthority("ADMIN")
 				.antMatchers("/employee/user/").hasAnyAuthority("USER", "ADMIN").anyRequest().authenticated().and()
 				.formLogin().loginPage("/login").successHandler(successHandler).permitAll().and().logout()
 				.logoutSuccessUrl("/login").permitAll().and().exceptionHandling().accessDeniedPage("/403").and().cors()

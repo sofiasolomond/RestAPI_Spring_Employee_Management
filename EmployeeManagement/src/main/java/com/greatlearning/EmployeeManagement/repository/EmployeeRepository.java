@@ -12,4 +12,5 @@ import com.greatlearning.EmployeeManagement.entity.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Query("select u from Employee u where u.firstName = ?1")
 	public List<Employee> searchByFirstName(String firstName);
+
 }

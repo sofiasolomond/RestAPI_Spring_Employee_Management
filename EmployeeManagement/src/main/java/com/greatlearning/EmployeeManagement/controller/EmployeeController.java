@@ -1,5 +1,6 @@
 package com.greatlearning.EmployeeManagement.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.greatlearning.EmployeeManagement.entity.Employee;
 import com.greatlearning.EmployeeManagement.service.EmployeeService;
@@ -61,14 +61,14 @@ public class EmployeeController {
 		model.addAttribute("Employees", employees);
 		return "UserPage";
 	}
-
+/*
 	// This end point list all the employee details
 	@RequestMapping("/list")
 	public String listEmployee(Model model) {
 		List<Employee> employees = employeeService.ListEmployeeAscOrder();
 		model.addAttribute("Employees", employees);
 		return "ListEmployees";
-	}
+	} */
 
 	// This end point is for adding new Employees
 	@RequestMapping("/showFormForAdd")
@@ -115,9 +115,7 @@ public class EmployeeController {
 
 	@RequestMapping("/search")
 	public String search(@RequestParam("firstName") String firstName, Model theModel) {
-
 		// If input is empty return back to home page
-
 		if (firstName.trim().isEmpty()) {
 			return "redirect:/employee/admin";
 		}
@@ -125,15 +123,30 @@ public class EmployeeController {
 			// else, search by first name 
 			List<Employee> employees =
 					employeeService.searchByFirstName(firstName);
-
 			// add to the spring model
 			theModel.addAttribute("Employees", employees);
-
 			return "AdminPage";
 		}
 	}
 	
-
+	@RequestMapping("/searchbyid")
+	public String searchById(@RequestParam("empId") int empId, Model theModel) {
+		// If input is empty return back to home page
+		if (empId == 0) {
+			return "redirect:/employee/admin";
+		}
+		else {
+			// else, search by first name 
+			Employee employee = employeeService.findById(empId);
+			System.out.println("Employee" + employee);
+			List<Employee> employees = new ArrayList<Employee>() ;
+			employees.add(employee);
+	
+			// add to the spring model
+			theModel.addAttribute("Employees", employees);
+			return "AdminPage";
+		}
+	}
 	@RequestMapping("/searchasuser")
 	public String searchAsUser(@RequestParam("firstName") String firstName, Model theModel) {
 

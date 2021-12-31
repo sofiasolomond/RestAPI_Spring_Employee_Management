@@ -20,7 +20,7 @@ public class LoginController {
 	public ModelAndView accesssDenied(Principal user) {
 		ModelAndView model = new ModelAndView();
 		if (user != null) {
-			model.addObject("msg", "Sorry" + user.getName() + "!! , you do not have permission to access this page!");
+			model.addObject("msg", "Sorry  " + user.getName() + "!! , you do not have permission to access this page!");
 		} else {
 			model.addObject("msg", "You do not have permission to access this page!");
 		}

@@ -21,4 +21,11 @@ public class Roles {
 
 	@Column(name = "role_name")
 	private String roleName;
+
+	public Roles(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public Roles() {
+	}
 }
